@@ -66,7 +66,7 @@ public class CupboardDevService {
 	 * @param devid
 	 * @return
 	 */
-	public boolean postcupboaer(Long userid,Long devid,int act,String num){
+	public boolean postcupboaer(Long userid,Long devid,int act,String callback,String num){
 		Map<String, Object> params = new HashMap<String, Object>();
 		params.put("method", "cupboarddelivery.cupboard");
 		params.put("appid", appid);
@@ -74,6 +74,7 @@ public class CupboardDevService {
 		params.put("userid", userid);
 		params.put("devid", String.valueOf(devid));
 		params.put("act", act);
+		params.put("callback", callback);
 		params.put("num", num);
 		String signature = GatewayProtocolService
 				.signRequest(params, appsecret);

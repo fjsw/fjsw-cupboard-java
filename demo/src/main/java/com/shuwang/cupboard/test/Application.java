@@ -16,7 +16,7 @@ public class Application {
 	  
 		cupboardevstatus();
 		
-//		cupboardevs();
+		cupboardevs();
 	}
     
 	/**
@@ -30,8 +30,8 @@ public class Application {
 		CupboardDevService cupboardDevService =new CupboardDevService();
 		//配置参数
 		cupboardDevService.initial(CupboardConfig.CLOUDAPP_APPID, CupboardConfig.CLOUDAPP_APPSECRET, CupboardConfig.GATEWAY_URL);
-		
-		boolean result =cupboardDevService.postcupboaer(userid, devid, act, null);
+		String callback="";
+		boolean result =cupboardDevService.postcupboaer(userid, devid, act,callback, null);
 		log.debug("result : {}", result);	
 	}
 
