@@ -16,7 +16,7 @@ public class Application {
 	  
 		cupboardevstatus();
 		
-		cupboardevs();
+//		cupboardevs();
 	}
     
 	/**
@@ -29,7 +29,7 @@ public class Application {
 		int act =1;//1开门，2关门
 		CupboardDevService cupboardDevService =new CupboardDevService();
 		//配置参数
-		cupboardDevService.initial(CupboardConfig.CLOUDAPP_APPID, CupboardConfig.CLOUDAPP_APPSECRET, CupboardConfig.CLOUDAPP_APPSECRET);
+		cupboardDevService.initial(CupboardConfig.CLOUDAPP_APPID, CupboardConfig.CLOUDAPP_APPSECRET, CupboardConfig.GATEWAY_URL);
 		
 		boolean result =cupboardDevService.postcupboaer(userid, devid, act, null);
 		log.debug("result : {}", result);	
@@ -43,7 +43,7 @@ public class Application {
 		Long devid =10211L;
 		CupboardDevService cupboardDevService =new CupboardDevService();
 		//配置参数
-		cupboardDevService.initial(CupboardConfig.CLOUDAPP_APPID, CupboardConfig.CLOUDAPP_APPSECRET, CupboardConfig.CLOUDAPP_APPSECRET);
+		cupboardDevService.initial(CupboardConfig.CLOUDAPP_APPID, CupboardConfig.CLOUDAPP_APPSECRET, CupboardConfig.GATEWAY_URL);
 		
 		String result =cupboardDevService.getcupboaer(devid);
 		log.debug("result : {}", result);

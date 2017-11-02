@@ -67,7 +67,9 @@ public class HttpsService {
     
     public String jsonPost(String url, String jsonObj) throws UnrecoverableKeyException, KeyManagementException, KeyStoreException, NoSuchAlgorithmException, IOException {
     	//String jsonObj = gson.toJson(params);
-        log.info("jsonPost() {}", jsonObj);
+
+        log.debug("url={}", url);
+        log.debug("jsonPost={}", jsonObj);
         if (!hasInit) {
             init();
         }
@@ -94,7 +96,7 @@ public class HttpsService {
 
         } catch (Exception e) {
             log.error("http get throw Exception");
-
+            e.printStackTrace();
         } finally {
             httpPost.abort();
         }
