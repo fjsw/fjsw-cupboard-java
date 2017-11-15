@@ -46,12 +46,16 @@ public class CupboardDevService {
 	 * @param devid
 	 * @return
 	 */
-	public String getcupboaer(Long devid){
+	public String getcupboaer(Long devid,Integer num){
 		Map<String, Object> params = new HashMap<String, Object>();
 		params.put("method", "cupboarddelivery.cupboard.text");
 		params.put("appid", appid);
 		params.put("timestamp", String.valueOf(System.currentTimeMillis()/1000));
 		params.put("devid", String.valueOf(devid));
+		if(num!=null){
+			params.put("num", num);	
+		}
+	
 		String signature = GatewayProtocolService
 				.signRequest(params, appsecret);
 		params.put("sign", signature);
@@ -62,11 +66,11 @@ public class CupboardDevService {
 	}
 	
 	/**
-	 * 发送开关门状态
+	 * 发送开门状态
 	 * @param devid
 	 * @return
 	 */
-	public boolean postcupboaer(Long userid,Long devid,int act,String callback,String num){
+	public boolean postcupboaer(Long userid,Long devid,int act,String callback,String num,int time,Integer volu){
 		Map<String, Object> params = new HashMap<String, Object>();
 		params.put("method", "cupboarddelivery.cupboard");
 		params.put("appid", appid);
@@ -76,6 +80,11 @@ public class CupboardDevService {
 		params.put("act", act);
 		params.put("callback", callback);
 		params.put("num", num);
+		params.put("time", time);
+		if(volu==null){
+			params.put("volu", volu);	
+		}
+		
 		String signature = GatewayProtocolService
 				.signRequest(params, appsecret);
 		params.put("sign", signature);
