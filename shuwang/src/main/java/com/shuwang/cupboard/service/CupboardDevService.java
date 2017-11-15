@@ -52,9 +52,7 @@ public class CupboardDevService {
 		params.put("appid", appid);
 		params.put("timestamp", String.valueOf(System.currentTimeMillis()/1000));
 		params.put("devid", String.valueOf(devid));
-		if(num!=null){
-			params.put("num", num);	
-		}
+		params.put("num", num);	
 	
 		String signature = GatewayProtocolService
 				.signRequest(params, appsecret);
