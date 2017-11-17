@@ -16,9 +16,9 @@ public class Application {
     
 	public static void main(String[] args) {
 	  
-		cupboardevstatus();
-		
-//		cupboardevs();
+//		cupboardevstatus();
+//		
+		cupboardevs();
 	}
     
 	/**
@@ -31,7 +31,7 @@ public class Application {
 		int act =1;//1开门，2关门
 		Integer num =1;
 		int time=10;
-		Integer volu=5;
+		Integer volu=50;
 		CupboardDevService cupboardDevService =new CupboardDevService();
 		//配置参数
 		cupboardDevService.initial(CupboardConfig.CLOUDAPP_APPID, CupboardConfig.CLOUDAPP_APPSECRET, CupboardConfig.GATEWAY_URL);
