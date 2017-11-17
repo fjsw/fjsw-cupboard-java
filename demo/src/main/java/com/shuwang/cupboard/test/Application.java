@@ -4,6 +4,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.google.gson.Gson;
+import com.shuwang.cupboard.model.BusinessException;
 import com.shuwang.cupboard.model.CupboardbaseDev;
 import com.shuwang.cupboard.model.Sendresponse;
 import com.shuwang.cupboard.service.CupboardDevService;
@@ -25,7 +26,7 @@ public class Application {
 	 */
 	private static void cupboardevs() {
 		// TODO Auto-generated method stub
-		Long devid =10211L;
+		Long devid =12011L;
 		Long userid =10211L;
 		int act =1;//1开门，2关门
 		Integer num =1;
@@ -44,13 +45,19 @@ public class Application {
 	 */
 	private static void cupboardevstatus() {
 		// TODO Auto-generated method stub
-		Long devid =10211L;
+		Long devid =120111L;
 		Integer num =1;
 		CupboardDevService cupboardDevService =new CupboardDevService();
 		//配置参数
 		cupboardDevService.initial(CupboardConfig.CLOUDAPP_APPID, CupboardConfig.CLOUDAPP_APPSECRET, CupboardConfig.GATEWAY_URL);
 		
-		CupboardbaseDev result =cupboardDevService.getcupboaer(devid,num);
+		CupboardbaseDev result = null;
+		try {
+			result = cupboardDevService.getcupboaer(devid,num);
+		} catch (BusinessException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		log.debug("cupboardbaseDev : {}", new Gson().toJson(result));
 	}
 

@@ -7,7 +7,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.google.gson.Gson;
+import com.shuwang.cupboard.model.BusinessException;
 import com.shuwang.cupboard.model.CupboardbaseDev;
+import com.shuwang.cupboard.model.Exceptionresponse;
 import com.shuwang.cupboard.model.QueryResponse;
 import com.shuwang.cupboard.model.SendResult;
 import com.shuwang.cupboard.model.Sendresponse;
@@ -51,8 +53,9 @@ public class CupboardDevService {
 	 * 查询设备状态
 	 * @param devid
 	 * @return
+	 * @throws BusinessException 
 	 */
-	public CupboardbaseDev getcupboaer(Long devid,Integer num){
+	public CupboardbaseDev getcupboaer(Long devid,Integer num) throws BusinessException{
 		Map<String, Object> params = new HashMap<String, Object>();
 		params.put("method", "cupboarddelivery.cupboard.text");
 		params.put("appid", appid);
@@ -64,8 +67,15 @@ public class CupboardDevService {
 				.signRequest(params, appsecret);
 		params.put("sign", signature);
 		String result = GatewayProtocolService.callDirect(params, gatewayUrl);
+		
 		QueryResponse queryResponse=new Gson().fromJson(result, QueryResponse.class);
 		log.debug("sendpay() result={}", result);
+		
+		if(queryResponse.getCode()!=200){
+			Exceptionresponse exceptionresponse =new Gson().fromJson(result, Exceptionresponse.class);
+			throw new BusinessException(new Gson().toJson(exceptionresponse.getResponse()));
+		}
+
 		return queryResponse.getResponse();
 		
 	}
