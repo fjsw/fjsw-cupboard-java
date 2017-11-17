@@ -41,7 +41,7 @@ public class HttpsService {
     //表示请求器是否已经做了初始化工作
     private boolean hasInit = false;
     //连接超时时间，默认10秒
-    private int socketTimeout = 10000;
+    private int socketTimeout = 20000;
     //传输超时时间，默认30秒
     private int connectTimeout = 30000;
     //请求器的配置
@@ -50,6 +50,12 @@ public class HttpsService {
     private CloseableHttpClient httpClient;
 
 
+//    //初始化请求器
+//    private void init(int timeout_ms) throws IOException, KeyStoreException, UnrecoverableKeyException, NoSuchAlgorithmException, KeyManagementException {
+//    	socketTimeout = timeout_ms;
+//        init();
+//    }
+    
     //初始化请求器
     private void init() throws IOException, KeyStoreException, UnrecoverableKeyException, NoSuchAlgorithmException, KeyManagementException {
 
@@ -83,8 +89,8 @@ public class HttpsService {
         try {
             HttpResponse response = httpClient.execute(httpPost);
             HttpEntity entity = response.getEntity();
-            log.info("code {}",response.getStatusLine().getStatusCode());
             result = EntityUtils.toString(entity, "UTF-8");
+            log.debug("jsonPost () text : {}",result);
         } catch (ConnectionPoolTimeoutException e) {
             log.error("http get throw ConnectionPoolTimeoutException(wait time out)");
 

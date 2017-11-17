@@ -6,6 +6,12 @@ import java.util.Map;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.google.gson.Gson;
+import com.shuwang.cupboard.model.CupboardbaseDev;
+import com.shuwang.cupboard.model.QueryResponse;
+import com.shuwang.cupboard.model.SendResult;
+import com.shuwang.cupboard.model.Sendresponse;
+
 public class CupboardDevService {
 	protected final Logger log = LoggerFactory.getLogger(getClass());
 	
@@ -46,7 +52,7 @@ public class CupboardDevService {
 	 * @param devid
 	 * @return
 	 */
-	public String getcupboaer(Long devid,Integer num){
+	public CupboardbaseDev getcupboaer(Long devid,Integer num){
 		Map<String, Object> params = new HashMap<String, Object>();
 		params.put("method", "cupboarddelivery.cupboard.text");
 		params.put("appid", appid);
@@ -58,8 +64,9 @@ public class CupboardDevService {
 				.signRequest(params, appsecret);
 		params.put("sign", signature);
 		String result = GatewayProtocolService.callDirect(params, gatewayUrl);
+		QueryResponse queryResponse=new Gson().fromJson(result, QueryResponse.class);
 		log.debug("sendpay() result={}", result);
-		return result;
+		return queryResponse.getResponse();
 		
 	}
 	
@@ -68,7 +75,8 @@ public class CupboardDevService {
 	 * @param devid
 	 * @return
 	 */
-	public boolean postcupboaer(Long userid,Long devid,int act,String callback,String num,int time,Integer volu){
+	public Sendresponse postcupboaer(Long userid, Long devid, int act,
+			String callback, Integer num, int time, Integer volu){
 		Map<String, Object> params = new HashMap<String, Object>();
 		params.put("method", "cupboarddelivery.cupboard");
 		params.put("appid", appid);
@@ -79,7 +87,7 @@ public class CupboardDevService {
 		params.put("callback", callback);
 		params.put("num", num);
 		params.put("time", time);
-		if(volu==null){
+		if(volu!=null){
 			params.put("volu", volu);	
 		}
 		
@@ -88,7 +96,10 @@ public class CupboardDevService {
 		params.put("sign", signature);
 		String result = GatewayProtocolService.callDirect(params, gatewayUrl);
 		log.debug("sendpay() result={}", result);
-		return true;
+		SendResult sendResult=new Gson().fromJson(result, SendResult.class);
+		return sendResult.getResponse();
 		
 	}
+
+
 }

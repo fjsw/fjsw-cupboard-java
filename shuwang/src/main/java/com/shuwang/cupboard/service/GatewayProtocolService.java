@@ -44,6 +44,7 @@ public class GatewayProtocolService {
 		String jsonObject = gson.toJson(params);
 		try {
 			String text = http.jsonPost(gatewayUrl, jsonObject);
+			log.debug("callDirect () text : {}",text);
 			return text;
 		} catch (Exception e) {
 			e.printStackTrace();
