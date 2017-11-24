@@ -5,7 +5,7 @@
 
 	<groupId>info.shuwang.cupboard</groupId>
 	<artifactId>fjsw-cupboard-sdk</artifactId>
-	<version>1.0.2</version>
+	<version>1.0.3</version>
 	<name>fjsw-cupboard-sdk</name>
 	<url>https://github.com/fjsw/fjsw-cupboard-java</url>
 	<description>fujian shuwang cupboard Java sdk </description>

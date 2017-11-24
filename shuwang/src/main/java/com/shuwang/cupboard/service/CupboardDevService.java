@@ -86,7 +86,7 @@ public class CupboardDevService {
 	 * @return
 	 */
 	public Sendresponse postcupboaer(Long userid, Long devid, int act,
-			String callback, Integer num, int time, Integer volu){
+			String callback, Integer num, int time, Integer volu,String openvo,String timevo,String clovo){
 		Map<String, Object> params = new HashMap<String, Object>();
 		params.put("method", "cupboarddelivery.cupboard");
 		params.put("appid", appid);
@@ -100,6 +100,38 @@ public class CupboardDevService {
 		if(volu!=null){
 			params.put("volu", volu);	
 		}
+		if(openvo!=null){
+			params.put("openvo", openvo);	
+		}
+		if(timevo!=null){
+			params.put("timevo", timevo);	
+		}
+		if(clovo!=null){
+			params.put("clovo", clovo);	
+		}
+		String signature = GatewayProtocolService
+				.signRequest(params, appsecret);
+		params.put("sign", signature);
+		String result = GatewayProtocolService.callDirect(params, gatewayUrl);
+		log.debug("sendpay() result={}", result);
+		SendResult sendResult=new Gson().fromJson(result, SendResult.class);
+		return sendResult.getResponse();
+		
+	}
+
+	
+	/**
+	 * 发送货柜锁语音推送
+	 * @param devid
+	 * @return
+	 */
+	public Sendresponse postvoice(Long devid, String voice){
+		Map<String, Object> params = new HashMap<String, Object>();
+		params.put("method", "cupboarddelivery.voice");
+		params.put("appid", appid);
+		params.put("timestamp", String.valueOf(System.currentTimeMillis()/1000));
+		params.put("voice", voice);
+		params.put("devid", String.valueOf(devid));
 		
 		String signature = GatewayProtocolService
 				.signRequest(params, appsecret);
